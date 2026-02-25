@@ -33,7 +33,7 @@ jobs:
           ant extensions
 
       - name: Upload AIX file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ListviewPlus-AIX
           path: appinventor-sources/appinventor/components/build/extensions
