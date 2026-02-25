@@ -39,9 +39,12 @@ public class ListviewPlus extends AndroidViewComponent {
 
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            ItemClick(items.get(position), position + 1);
-        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ItemClick(items.get(position), position + 1);
+    }
+});
     }
 
     @Override
