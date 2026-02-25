@@ -1,1 +1,39 @@
+name: Build Kodular Extension
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java 8
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+
+      - name: Install Ant
+        run: sudo apt-get install ant
+
+      - name: Clone App Inventor Sources
+        run: |
+          git clone https://github.com/mit-cml/appinventor-sources.git
+          cp -r src/com appinventor-sources/appinventor/components/src/
+
+      - name: Build Extension
+        run: |
+          cd appinventor-sources/appinventor
+          ant extensions
+
+      - name: Upload AIX file
+        uses: actions/upload-artifact@v3
+        with:
+          name: ListviewPlus-AIX
+          path: appinventor-sources/appinventor/components/build/extensions
